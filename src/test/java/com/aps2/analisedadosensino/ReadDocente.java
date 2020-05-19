@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReadDocente {
@@ -21,11 +22,16 @@ public class ReadDocente {
                 .withSeparator('|')
                 .build();
 
-        List<Docente> docentes = csvToBean.parse();
-
-        for (Docente docente : docentes)
-            System.out.println(docente);
-
+        List<Docente> initialDocentes = csvToBean.parse();
+        List<Docente> docentes = new ArrayList<Docente>();
+        
+        for (Docente docente : initialDocentes) {
+        	docentes.add(docente.analyse());
+        }
+        
+        for (Docente docente : docentes) {
+            System.out.println(docente.getDisc());
+        }
     }
 
 }
