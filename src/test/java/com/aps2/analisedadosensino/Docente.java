@@ -14,8 +14,6 @@ public class Docente {
 	  private String IN_POS_NENHUM;
 	  private Nivel nivel;
 	  
-		
-	
 	public String toString() {
         return "CsvPessoa{mestrado = " + IN_MESTRADO + ", doutorado = " +
 	IN_DOUTORADO + ", Nenhum = " +IN_POS_NENHUM+ "}";
@@ -30,9 +28,6 @@ public class Docente {
 		}
 		else if(IN_DISC_QUIMICA.equals("1")) {
 			setDisc(Disc.quimica);		
-		}
-		else if(IN_DISC_CIENCIAS.equals("1")) {
-			setDisc(Disc.ciencias);			
 		}
 		else {
 			setDisc(Disc.outra);
@@ -139,5 +134,10 @@ public class Docente {
 	public void setOutra(String outra) {
 		Outra = outra;
 	}
+	
+	public static void main(String args[]) {
+		System.out.println("teste");
+	}
+
 
 }

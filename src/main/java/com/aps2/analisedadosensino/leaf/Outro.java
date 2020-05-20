@@ -4,10 +4,35 @@ import com.aps2.analisedadosensino.component.Docente;
 
 public class Outro implements Docente {
 
+	private String pos_nenhum;
+	private String mestrado;
+	private String doutorado;
+	private Nivel nivel;
+	
+	public Outro(String pos_nenhum, String mestrado, String doutorado) {
+			this.pos_nenhum = pos_nenhum;
+			this.mestrado = mestrado;
+			this.doutorado = doutorado;
+	}
+	
 	@Override
-	public void analyse() {
+	public String analyse() {
 		// TODO Auto-generated method stub
 		
+		if(doutorado.equals("1")) {
+			nivel = Nivel.doutorado;
+		}
+		else if(mestrado.equals("1")) {
+			nivel = Nivel.mestrado;
+		}
+		else if(pos_nenhum.equals("1")) {
+			nivel = Nivel.graduação;
+		}
+		else {
+			nivel = Nivel.pos;
+		}
+		return "o"+nivel.toString(); 
 	}
+
 
 }

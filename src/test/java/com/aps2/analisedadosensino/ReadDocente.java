@@ -26,12 +26,16 @@ public class ReadDocente {
         List<Docente> docentes = new ArrayList<Docente>();
         
         for (Docente docente : initialDocentes) {
+        	System.out.println(docente);
+        }
+        
+        /*for (Docente docente : initialDocentes) {
         	docentes.add(docente.analyse());
         }
         
         for (Docente docente : docentes) {
             System.out.println(docente.getDisc());
-        }
+        }*/
     }
 
 }
