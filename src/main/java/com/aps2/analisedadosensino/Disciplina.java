@@ -8,6 +8,8 @@ public class Disciplina {
 	private Integer qpos;
 	private Integer qmestrado;
 	private Integer qdoutorado;
+	private Integer qseminfo;
+	private Float posgradmat;
 	
 	public Disciplina(String nome) {
 			this.nome = nome;
@@ -16,6 +18,7 @@ public class Disciplina {
 			this.qpos = 0;
 			this.qmestrado = 0;
 			this.qdoutorado = 0;
+			this.qseminfo = 0;
 	}
 	
 	public Disciplina add(String info) {
@@ -29,10 +32,17 @@ public class Disciplina {
 		else if(info.equals("pos")) {
 			qpos++;
 		}
-		else {
+		else if(info.equals("graduação")) {
 			qgraduacao++;
 		}
-		
+		else {
+			qseminfo++;
+		}
+		return this;
+}
+	
+	public Disciplina calculate() {
+		posgradmat = (float) 100*(qpos + qmestrado + qdoutorado)/qtotal;
 		return this;
 	}
 	
@@ -73,6 +83,22 @@ public class Disciplina {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Integer getQseminfo() {
+		return qseminfo;
+	}
+
+	public void setQseminfo(Integer qseminfo) {
+		this.qseminfo = qseminfo;
+	}
+
+	public Float getPosgradmat() {
+		return posgradmat;
+	}
+
+	public void setPosgradmat(Float posgradmat) {
+		this.posgradmat = posgradmat;
 	}
 	
 	

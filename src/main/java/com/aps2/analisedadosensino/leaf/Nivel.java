@@ -4,5 +4,6 @@ public enum Nivel {
 	graduação,
 	pos,
 	mestrado,
-	doutorado;
+	doutorado,
+	sem_informação;
 }

@@ -15,7 +15,7 @@ public class ReadDocente {
 
     public static void main(String[] args) throws IOException {
 
-        Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Ronaldo\\Desktop\\Matérias\\4.1\\APSII\\TrabalhoVE\\microdados_educacao_basica_2019\\DADOS\\TESTEDOCENTE.csv"));
+        Reader reader = Files.newBufferedReader(Paths.get("C:\\DadosAPSII\\Norte.csv"));
 
         CsvToBean<Docente> csvToBean = new CsvToBeanBuilder(reader)
                 .withType(Docente.class)

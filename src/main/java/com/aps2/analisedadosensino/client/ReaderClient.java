@@ -75,7 +75,7 @@ public class ReaderClient {
 
 	
 	public List<ReaderClient> readCSV(String CSVName) throws IOException {
-		String FileName = "C:\\Users\\Ronaldo\\Desktop\\Matérias\\4.1\\APSII\\TrabalhoVE\\microdados_educacao_basica_2019\\DADOS\\";
+		String FileName = "C:\\DadosAPSII\\";
 		FileName += CSVName+".csv";
 		Reader reader = Files.newBufferedReader(Paths.get(FileName));
 

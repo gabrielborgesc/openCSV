@@ -28,8 +28,11 @@ public class Matematico implements Docente{
 		else if(pos_nenhum.equals("1")) {
 			nivel = Nivel.graduação;
 		}
-		else {
+		else if(pos_nenhum.equals("0")) {
 			nivel = Nivel.pos;
+		}
+		else { ///caso em que todos esses campos são vazios
+			nivel = Nivel.sem_informação;
 		}
 		return "m"+nivel.toString(); 
 	}
