@@ -1,92 +1,53 @@
 package com.aps2.analisedadosensino.client;
 
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
+import com.aps2.analisedadosensino.composite.Regiao;
+import com.aps2.analisedadosensino.leaf.Fisico;
+import com.aps2.analisedadosensino.leaf.Matematico;
+import com.aps2.analisedadosensino.leaf.Outro;
+import com.aps2.analisedadosensino.leaf.Quimico;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Client {
-	  private String IN_DISC_MATEMATICA;
-	  private String IN_DISC_FISICA;
-	  private String IN_DISC_QUIMICA;
-	  private String IN_DISC_CIENCIAS;
-	  private String Outra;
-	  
-	  private String IN_MESTRADO;
-	  private String IN_DOUTORADO;
-	  private String IN_POS_NENHUM;
 	
-	  
-	public String getIN_DISC_MATEMATICA() {
-		return IN_DISC_MATEMATICA;
+	public static void main (String args[]) throws IOException {
+		
+		ReaderClient reader = new ReaderClient();
+		List<ReaderClient> professores = new ArrayList<ReaderClient>();
+		Regiao regiao = new Regiao();
+		String[] nomesRegioes = {"Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"}; 
+		String analyse = "";
+		String percent = "\n\n";
+		
+		for(String nome : nomesRegioes) {///pega as informações das tabelas CSV	
+			regiao.setNome(nome);
+			professores = reader.readCSV(nome);
+			
+			for(ReaderClient professor : professores) {
+				if(professor.getIN_DISC_MATEMATICA().equals("1")) {
+					regiao.add(new Matematico(professor.getIN_POS_NENHUM(), professor.getIN_MESTRADO(), professor.getIN_DOUTORADO()));			
+				}
+				else if(professor.getIN_DISC_FISICA().equals("1")) {
+					regiao.add(new Fisico(professor.getIN_POS_NENHUM(), professor.getIN_MESTRADO(), professor.getIN_DOUTORADO()));			
+				}
+				else if(professor.getIN_DISC_QUIMICA().equals("1")) {
+					regiao.add(new Quimico(professor.getIN_POS_NENHUM(), professor.getIN_MESTRADO(), professor.getIN_DOUTORADO()));			
+				}
+				else {
+					regiao.add(new Outro(professor.getIN_POS_NENHUM(), professor.getIN_MESTRADO(), professor.getIN_DOUTORADO()));	
+				}
+			}
+			
+			analyse += regiao.analyse();
+			percent+= regiao.percent();
+			regiao.reset();
+		}
+		
+		System.out.println(analyse+percent);
+		
 	}
-	public void setIN_DISC_MATEMATICA(String iN_DISC_MATEMATICA) {
-		IN_DISC_MATEMATICA = iN_DISC_MATEMATICA;
-	}
-	public String getIN_DISC_FISICA() {
-		return IN_DISC_FISICA;
-	}
-	public void setIN_DISC_FISICA(String iN_DISC_FISICA) {
-		IN_DISC_FISICA = iN_DISC_FISICA;
-	}
-	public String getIN_DISC_QUIMICA() {
-		return IN_DISC_QUIMICA;
-	}
-	public void setIN_DISC_QUIMICA(String iN_DISC_QUIMICA) {
-		IN_DISC_QUIMICA = iN_DISC_QUIMICA;
-	}
-	public String getIN_DISC_CIENCIAS() {
-		return IN_DISC_CIENCIAS;
-	}
-	public void setIN_DISC_CIENCIAS(String iN_DISC_CIENCIAS) {
-		IN_DISC_CIENCIAS = iN_DISC_CIENCIAS;
-	}
-	public String getOutra() {
-		return Outra;
-	}
-	public void setOutra(String outra) {
-		Outra = outra;
-	}
-
-	public String getIN_MESTRADO() {
-		return IN_MESTRADO;
-	}
-	public void setIN_MESTRADO(String iN_MESTRADO) {
-		IN_MESTRADO = iN_MESTRADO;
-	}
-	public String getIN_DOUTORADO() {
-		return IN_DOUTORADO;
-	}
-	public void setIN_DOUTORADO(String iN_DOUTORADO) {
-		IN_DOUTORADO = iN_DOUTORADO;
-	}
-	public String getIN_POS_NENHUM() {
-		return IN_POS_NENHUM;
-	}
-	public void setIN_POS_NENHUM(String iN_POS_NENHUM) {
-		IN_POS_NENHUM = iN_POS_NENHUM;
-	}
-
 	
-	public List<Client> readCSV(String CSVName) throws IOException {
-		String FileName = "C:\\Users\\Ronaldo\\Desktop\\Matérias\\4.1\\APSII\\TrabalhoVE\\microdados_educacao_basica_2019\\DADOS\\";
-		FileName += CSVName+".csv";
-		Reader reader = Files.newBufferedReader(Paths.get(FileName));
-
-        CsvToBean<Client> csvToBean = new CsvToBeanBuilder(reader)
-                .withType(Client.class)
-                .withSeparator('|')
-                .build();
-
-        return csvToBean.parse();
-	}
-
-
-
 }
