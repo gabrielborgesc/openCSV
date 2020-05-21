@@ -27,13 +27,13 @@ public class Client {
 			professores = reader.readCSV(nome);
 			
 			for(ReaderClient professor : professores) {
-				if(professor.getIN_DISC_MATEMATICA().equals("1")) {
+				if(professor.getIN_DISC_MATEMATICA().equals("1.0")) {
 					regiao.add(new Matematico(professor.getIN_POS_NENHUM(), professor.getIN_MESTRADO(), professor.getIN_DOUTORADO()));			
 				}
-				else if(professor.getIN_DISC_FISICA().equals("1")) {
+				else if(professor.getIN_DISC_FISICA().equals("1.0")) {
 					regiao.add(new Fisico(professor.getIN_POS_NENHUM(), professor.getIN_MESTRADO(), professor.getIN_DOUTORADO()));			
 				}
-				else if(professor.getIN_DISC_QUIMICA().equals("1")) {
+				else if(professor.getIN_DISC_QUIMICA().equals("1.0")) {
 					regiao.add(new Quimico(professor.getIN_POS_NENHUM(), professor.getIN_MESTRADO(), professor.getIN_DOUTORADO()));			
 				}
 				else {

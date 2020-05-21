@@ -19,16 +19,16 @@ public class Quimico implements Docente {
 	public String analyse() {
 		// TODO Auto-generated method stub
 		
-		if(doutorado.equals("1")) {
+		if(doutorado.equals("1.0")) {
 			nivel = Nivel.doutorado;
 		}
-		else if(mestrado.equals("1")) {
+		else if(mestrado.equals("1.0")) {
 			nivel = Nivel.mestrado;
 		}
-		else if(pos_nenhum.equals("1")) {
+		else if(pos_nenhum.equals("1.0")) {
 			nivel = Nivel.graduação;
 		}
-		else if(pos_nenhum.equals("0")) {
+		else if(pos_nenhum.equals("0.0")) {
 			nivel = Nivel.pos;
 		}
 		else { ///caso em que todos esses campos são vazios
