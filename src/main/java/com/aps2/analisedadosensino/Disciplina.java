@@ -1,105 +1,151 @@
 package com.aps2.analisedadosensino;
 
-public class Disciplina {
+import com.aps2.analisedadosensino.component.Docente;
+import com.aps2.analisedadosensino.leaf.Nivel;
 
-	private String nome;
-	private Integer qtotal;
-	private Integer qgraduacao;
-	private Integer qpos;
-	private Integer qmestrado;
-	private Integer qdoutorado;
-	private Integer qseminfo;
-	private Float posgradmat;
-	
-	public Disciplina(String nome) {
-			this.nome = nome;
-			this.qtotal = 0;
-			this.qgraduacao = 0;
-			this.qpos = 0;
-			this.qmestrado = 0;
-			this.qdoutorado = 0;
-			this.qseminfo = 0;
-	}
-	
-	public Disciplina add(String info) {
-		qtotal++;
-		if(info.equals("doutorado")) {
-			qdoutorado++;
-		}
-		else if(info.equals("mestrado")) {
-			qmestrado++;
-		}
-		else if(info.equals("pos")) {
-			qpos++;
-		}
-		else if(info.equals("graduação")) {
-			qgraduacao++;
-		}
-		else {
-			qseminfo++;
-		}
-		return this;
-}
-	
-	public Disciplina calculate() {
-		posgradmat = (float) 100*(qpos + qmestrado + qdoutorado)/qtotal;
-		return this;
-	}
-	
-	public Integer getQtotal() {
-		return qtotal;
-	}
-	public void setQtotal(Integer qtotal) {
-		this.qtotal = qtotal;
-	}
-	public Integer getQgraduacao() {
-		return qgraduacao;
-	}
-	public void setQgraduacao(Integer qgraduacao) {
-		this.qgraduacao = qgraduacao;
-	}
-	public Integer getQpos() {
-		return qpos;
-	}
-	public void setQpos(Integer qpos) {
-		this.qpos = qpos;
-	}
-	public Integer getQmestrado() {
-		return qmestrado;
-	}
-	public void setQmestrado(Integer qmestrado) {
-		this.qmestrado = qmestrado;
-	}
-	public Integer getQdoutorado() {
-		return qdoutorado;
-	}
-	public void setQdoutorado(Integer qdoutorado) {
-		this.qdoutorado = qdoutorado;
-	}
+import java.util.ArrayList;
+import java.util.List;
 
-	public String getNome() {
-		return nome;
-	}
+import static com.aps2.analisedadosensino.Utils.BREAK_LINE;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+public class Disciplina implements Docente {
 
-	public Integer getQseminfo() {
-		return qseminfo;
-	}
+    private NomeDisciplina nome;
+    private List<Docente> docentes;
+    private int total;
+    private int graduados;
+    private int posGraduados;
+    private int mestres;
+    private int doutores;
+    private int semInformacao;
+    private double porcentagemComAlgumaPosGraduacao;
 
-	public void setQseminfo(Integer qseminfo) {
-		this.qseminfo = qseminfo;
-	}
+    public Disciplina(NomeDisciplina nome) {
+        this.nome = nome;
+        this.docentes = new ArrayList<Docente>();
+        this.total = 0;
+        this.graduados = 0;
+        this.posGraduados = 0;
+        this.mestres = 0;
+        this.doutores = 0;
+        this.semInformacao = 0;
+        this.porcentagemComAlgumaPosGraduacao = 0.0;
+    }
 
-	public Float getPosgradmat() {
-		return posgradmat;
-	}
+    public void adiciona(Docente docente) {
+        this.docentes.add(docente);
+    }
 
-	public void setPosgradmat(Float posgradmat) {
-		this.posgradmat = posgradmat;
-	}
-	
-	
+    @Override
+    public Nivel getNivel() {
+        return null;
+    }
+
+    @Override
+    public NomeDisciplina getNomeDisciplina() {
+        return null;
+    }
+
+    public String analisa() {
+        this.calculaNivel();
+
+        return this.nome.toString() + ":" + BREAK_LINE +
+                "Total de docentes: " + this.total + BREAK_LINE +
+                "Docentes com apenas graduação: " + this.graduados + BREAK_LINE +
+                "Docentes com apenas pós-graduação: " + this.posGraduados + BREAK_LINE +
+                "Docentes com mestrado: " + this.mestres + BREAK_LINE +
+                "Docentes com doutorado: " + this.doutores + BREAK_LINE +
+                "Sem informação: " + this.semInformacao + BREAK_LINE;
+    }
+
+    private void calculaNivel() {
+        this.docentes.forEach(this::calculaNivel);
+        this.porcentagemComAlgumaPosGraduacao = 100 * (posGraduados + mestres + doutores) / (double) total;
+    }
+
+    private void calculaNivel(Docente docente) {
+        this.total++;
+
+        switch (docente.getNivel()) {
+            case GRADUAÇÃO:
+                this.graduados++;
+                break;
+            case POS_GRADUAÇÃO:
+                this.posGraduados++;
+                break;
+            case MESTRADO:
+                this.mestres++;
+                break;
+            case DOUTORADO:
+                this.doutores++;
+                break;
+            default:
+                this.semInformacao++;
+        }
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Integer getGraduados() {
+        return graduados;
+    }
+
+    public void setGraduados(Integer graduados) {
+        this.graduados = graduados;
+    }
+
+    public Integer getPosGraduados() {
+        return posGraduados;
+    }
+
+    public void setPosGraduados(Integer posGraduados) {
+        this.posGraduados = posGraduados;
+    }
+
+    public Integer getMestres() {
+        return mestres;
+    }
+
+    public void setMestres(Integer mestres) {
+        this.mestres = mestres;
+    }
+
+    public Integer getDoutores() {
+        return doutores;
+    }
+
+    public void setDoutores(Integer doutores) {
+        this.doutores = doutores;
+    }
+
+    public NomeDisciplina getNome() {
+        return nome;
+    }
+
+    public void setNome(NomeDisciplina nome) {
+        this.nome = nome;
+    }
+
+    public Integer getSemInformacao() {
+        return semInformacao;
+    }
+
+    public void setSemInformacao(Integer semInformacao) {
+        this.semInformacao = semInformacao;
+    }
+
+    public Double getPorcentagemComAlgumaPosGraduacao() {
+        return porcentagemComAlgumaPosGraduacao;
+    }
+
+    public void setPorcentagemComAlgumaPosGraduacao(Float porcentagemComAlgumaPosGraduacao) {
+        this.porcentagemComAlgumaPosGraduacao = porcentagemComAlgumaPosGraduacao;
+    }
+
 }
