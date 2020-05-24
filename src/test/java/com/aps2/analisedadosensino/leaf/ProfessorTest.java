@@ -31,11 +31,7 @@ public class ProfessorTest
 		};
 		
 		for(TestCase testCase : testCases)
-		{
 			Assertions.assertEquals(testCase.result, testCase.value.analisa());
-		}
-		Professor professor = new Matematico(Nivel.DOUTORADO);
-		System.out.println(professor.analisa());
 	}
 	
 	private class TestCase {
