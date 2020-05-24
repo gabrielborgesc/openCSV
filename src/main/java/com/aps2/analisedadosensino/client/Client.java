@@ -1,17 +1,14 @@
 package com.aps2.analisedadosensino.client;
 
-import com.aps2.analisedadosensino.component.Docente;
-import com.aps2.analisedadosensino.composite.Regiao;
-import com.aps2.analisedadosensino.factory.FabricaDocente;
-import com.aps2.analisedadosensino.leaf.Nivel;
+import static com.aps2.analisedadosensino.NomeDisciplina.MATEMATICA;
+import static com.aps2.analisedadosensino.Utils.BREAK_LINE;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.aps2.analisedadosensino.NomeDisciplina.*;
-import static com.aps2.analisedadosensino.Utils.BREAK_LINE;
-import static com.aps2.analisedadosensino.Utils.parseBoolean;
+import com.aps2.analisedadosensino.composite.Regiao;
+import com.aps2.analisedadosensino.factory.FabricaDocente;
 
 
 public class Client {
@@ -36,43 +33,13 @@ public class Client {
 
             for (ReaderClient professor : professores) {
 
-                var possuiDoutorado = parseBoolean(professor.getIN_DOUTORADO());
-                var possuiMestrado = parseBoolean(professor.getIN_MESTRADO());
-                var possuiPos = !parseBoolean(professor.getIN_POS_NENHUM());
-                var possuiGraduacao = parseBoolean(professor.getIN_POS_NENHUM());
-
-                var eMatematico = parseBoolean(professor.getIN_DISC_MATEMATICA());
-                var eFisico = parseBoolean(professor.getIN_DISC_FISICA());
-                var eQuimico = parseBoolean(professor.getIN_DISC_QUIMICA());
-
-                Nivel nivel;
-
-                if (possuiDoutorado)
-                    nivel = Nivel.DOUTORADO;
-                else if (possuiMestrado)
-                    nivel = Nivel.MESTRADO;
-                else if (possuiPos)
-                    nivel = Nivel.POS_GRADUAÇÃO;
-                else if (possuiGraduacao)
-                    nivel = Nivel.GRADUAÇÃO;
-                else
-                    nivel = Nivel.SEM_INFORMAÇÃO;
-
-                Docente docente;
-
-                if (eMatematico) {
-                    docente = fabricaDocente.criaDocente(MATEMATICA, nivel);
-                    regiao.adiciona(docente);
-                } else if (eFisico) {
-                    docente = fabricaDocente.criaDocente(FISICA, nivel);
-                    regiao.adiciona(docente);
-                } else if (eQuimico) {
-                    docente = fabricaDocente.criaDocente(QUIMICA, nivel);
-                    regiao.adiciona(docente);
-                } else {
-                    docente = fabricaDocente.criaDocente(OUTRAS, nivel);
-                    regiao.adiciona(docente);
-                }
+            	try {
+            		var docente = fabricaDocente.criaDocente(professor);
+            		regiao.adiciona(docente);
+            	}
+            	catch(IllegalArgumentException e) {
+            		continue;
+            	}
             }
 
             result.append(regiao.analisa());

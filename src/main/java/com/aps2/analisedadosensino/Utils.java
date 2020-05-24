@@ -6,10 +6,15 @@ public class Utils {
 
     public static boolean parseBoolean(String value) {
         try {
-            var number = Double.parseDouble(value);
-            return number > 0;
+            double number = Double.parseDouble(value);
+            if(number == 1)
+            	return true;
+            if(number == 0)
+            	return false;
+            
+            throw new IllegalArgumentException("Entrada inválida: " + value);
         } catch (NumberFormatException e) {
-            return false;
+            throw new IllegalArgumentException("Entrada inválida: " + value);
         }
     }
 }

@@ -1,14 +1,13 @@
 package com.aps2.analisedadosensino.client;
 
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
+
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 
 public class ReaderClient {
@@ -75,7 +74,7 @@ public class ReaderClient {
 
 	
 	public List<ReaderClient> readCSV(String CSVName) throws IOException {
-		String FileName = "C:\\DadosAPSII\\";
+		String FileName = "/home/bernardo/APS/";
 		FileName += CSVName+".csv";
 		Reader reader = Files.newBufferedReader(Paths.get(FileName));
 
