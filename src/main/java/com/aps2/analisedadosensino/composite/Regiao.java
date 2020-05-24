@@ -1,19 +1,18 @@
 package com.aps2.analisedadosensino.composite;
 
-import com.aps2.analisedadosensino.Disciplina;
-import com.aps2.analisedadosensino.NomeDisciplina;
-import com.aps2.analisedadosensino.component.Docente;
-import com.aps2.analisedadosensino.leaf.Nivel;
+import static com.aps2.analisedadosensino.NomeDisciplina.MATEMATICA;
+import static com.aps2.analisedadosensino.Utils.BREAK_LINE;
 
-import java.io.BufferedReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.aps2.analisedadosensino.NomeDisciplina.MATEMATICA;
-import static com.aps2.analisedadosensino.Utils.BREAK_LINE;
+import com.aps2.analisedadosensino.Disciplina;
+import com.aps2.analisedadosensino.NomeDisciplina;
+import com.aps2.analisedadosensino.component.Docente;
+import com.aps2.analisedadosensino.leaf.Nivel;
 
 public class Regiao implements Docente {
 

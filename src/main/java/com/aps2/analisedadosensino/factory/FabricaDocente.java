@@ -28,11 +28,6 @@ public class FabricaDocente {
         }
     }
 
-    public void analisa(NomeDisciplina nomeDisciplina, Nivel nivel) {
-        var docente = criaDocente(nomeDisciplina, nivel);
-        docente.analisa();
-    }
-    
     public Docente criaDocente(ReaderClient professor)
     {
     	var possuiDoutorado = parseBoolean(professor.getIN_DOUTORADO());

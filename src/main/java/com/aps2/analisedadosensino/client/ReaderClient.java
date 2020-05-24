@@ -22,6 +22,20 @@ public class ReaderClient {
 	  private String IN_DOUTORADO;
 	
 	  
+	  public ReaderClient() {}
+	  
+	  
+	public ReaderClient(String iN_DISC_MATEMATICA, String iN_DISC_FISICA, String iN_DISC_QUIMICA,
+			String iN_POS_NENHUM, String iN_MESTRADO, String iN_DOUTORADO) {
+		IN_DISC_MATEMATICA = iN_DISC_MATEMATICA;
+		IN_DISC_FISICA = iN_DISC_FISICA;
+		IN_DISC_QUIMICA = iN_DISC_QUIMICA;
+		IN_POS_NENHUM = iN_POS_NENHUM;
+		IN_MESTRADO = iN_MESTRADO;
+		IN_DOUTORADO = iN_DOUTORADO;
+	}
+
+
 	public String getIN_DISC_MATEMATICA() {
 		return IN_DISC_MATEMATICA;
 	}
