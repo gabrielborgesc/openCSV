@@ -2,8 +2,11 @@ package com.aps2.analisedadosensino.client;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.bean.CsvToBean;
@@ -87,17 +90,22 @@ public class ReaderClient {
 	}
 
 	
-	public List<ReaderClient> readCSV(String CSVName) throws IOException {
-		String FileName = "/home/bernardo/APS/";
-		FileName += CSVName+".csv";
-		Reader reader = Files.newBufferedReader(Paths.get(FileName));
+	public List<ReaderClient> readCSV(String CSVName) throws IOException{
+		URL url = ReaderClient.class.getClassLoader().getResource(CSVName+".csv");
+		Reader reader;
+		try {
+			reader = Files.newBufferedReader(Paths.get(url.toURI()));
+			CsvToBean<ReaderClient> csvToBean = new CsvToBeanBuilder(reader)
+					.withType(ReaderClient.class)
+					.withSeparator('|')
+					.build();
+			
+			return csvToBean.parse();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return new ArrayList<ReaderClient>();
 
-        CsvToBean<ReaderClient> csvToBean = new CsvToBeanBuilder(reader)
-                .withType(ReaderClient.class)
-                .withSeparator('|')
-                .build();
-
-        return csvToBean.parse();
 	}
 
 }
